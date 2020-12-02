@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const sequelize = require("./utils/database");
 const usersRouter = require("./users/users.routes");
 const errorMiddleware = require("./errors/errorMiddleware");
 
@@ -20,7 +21,7 @@ class Server {
   async initServices() {
     this.initCommonMiddleware();
     this.initRoutes();
-    // await this.#initDataBase();
+    await this.initDataBase();
     this.initErrorMiddleware();
   }
   get app() {
@@ -33,8 +34,15 @@ class Server {
     this.#app.use(express.static("public"));
     this.#app.use(cors());
   }
-  initDataBase() {
-
+  async initDataBase() {
+    try {
+      await sequelize.authenticate();
+      console.log("Connection has been established successfully.");
+    }
+    catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
   }
   initErrorMiddleware() {
     this.#app.use(errorMiddleware);
