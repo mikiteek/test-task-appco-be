@@ -11,6 +11,13 @@ usersRouter.delete("/:id",
   userController.removeUser,
 );
 
+usersRouter.get("/",
+  userController.getListUsers,
+);
+usersRouter.get("/seed",
+  userController.seedUsers,
+);
+
 usersRouter.get("/:id",
   userController.getUserById,
 );
