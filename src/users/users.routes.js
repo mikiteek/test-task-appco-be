@@ -1,18 +1,26 @@
 const {Router} = require("express");
 
-const userController = require("./users.controller");
+const usersController = require("./users.controller");
 const usersRouter = Router();
 
 usersRouter.post("/",
-  userController.createUser,
+  usersController.createUser,
 );
 
 usersRouter.delete("/:id",
-  userController.removeUser,
+  usersController.removeUser,
+);
+
+usersRouter.get("/",
+  usersController.getListUsers,
+);
+
+usersRouter.patch("/seed",
+  usersController.seedUsers,
 );
 
 usersRouter.get("/:id",
-  userController.getUserById,
+  usersController.getUserById,
 );
 
 module.exports = usersRouter;
