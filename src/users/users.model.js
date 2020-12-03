@@ -2,6 +2,8 @@ const {DataTypes, Model} = require("sequelize");
 const sequelizePaginate = require('sequelize-paginate')
 const sequelize = require("../utils/database");
 
+const Statistic = require("../statistics/statistics.model");
+
 class User extends Model {}
 
 User.init({
@@ -34,5 +36,6 @@ User.init({
 
 sequelizePaginate.paginate(User);
 User.sync().then(() => console.log("User sync success"));
+User.hasMany(Statistic, {as: "statistic", foreignKey: "user_id"});
 
 module.exports = User;

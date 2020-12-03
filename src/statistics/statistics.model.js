@@ -1,6 +1,8 @@
 const {DataTypes, Model} = require("sequelize");
 const sequelize = require("../utils/database");
 
+// const User = require("../users/users.model");
+
 class Statistic extends Model {}
 
 Statistic.init({
@@ -24,5 +26,6 @@ Statistic.init({
 );
 
 Statistic.sync().then(() => console.log("Statistic sync success"));
+// Statistic.belongsTo(User, {foreignKey: "user_id"});
 
 module.exports = Statistic;
