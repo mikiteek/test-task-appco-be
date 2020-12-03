@@ -1,4 +1,5 @@
 const User = require("./users.model");
+const {getUsersData} = require("../helpers/getJsonDataHelper");
 const {checkRowsAndSeedHelper} = require("../helpers/checkRowsAndSeedHelper");
 
 class UsersController {
@@ -14,7 +15,7 @@ class UsersController {
   }
   async seedUsers(req, res, next) {
     try {
-      // await checkRowsAndSeedHelper();
+      // await checkRowsAndSeedHelper(User, getUsersData);
       return res.status(201).send();
     }
     catch (error) {

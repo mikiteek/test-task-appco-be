@@ -1,20 +1,15 @@
-const {seedingDataHelper} = require("./seedingDataHelper");
-const {getUsersStatisticData, getUsersData} = require("./getJsonDataHelper");
-const User = require("../users/users.model");
-const Statistic = require("../statistics/statistics.model");
+const seedingDataHelper = async (model, seedingData) => {
+  const data = await model.bulkCreate(seedingData);
+  return data;
+}
 
-const checkRowsAndSeedHelper = async () => {
-  const users = await User.findOne();
-  // if (!users) {
-  //   const usersData = await getUsersData();
-  //   await seedingDataHelper(User, usersData);
-  // }
-  // const statistics = await Statistic.findOne();
-  // if (!statistics) {
-  //   const statisticsData = await getUsersStatisticData();
-  //   await seedingDataHelper(Statistic, statisticsData);
-  // }
-  // return;
+const checkRowsAndSeedHelper = async (model, getData) => {
+  const data = await model.findOne();
+  if (data) {
+    return;
+  }
+  const dataToSeed = await getData();
+  await seedingDataHelper(model, dataToSeed);
 }
 
 module.exports = {

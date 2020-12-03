@@ -7,7 +7,9 @@ Statistic.init({
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "User",
+      model: {
+        tableName: "Users",
+      },
       key: "id",
     }
   },
@@ -17,6 +19,7 @@ Statistic.init({
 },
   {
     sequelize,
+    timestamps: false,
   }
 );
 
