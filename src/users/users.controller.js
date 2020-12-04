@@ -21,8 +21,10 @@ class UsersController {
 
   async getListUsers(req, res, next) {
     try {
+      const {query: {page, paginate}} = req;
       const users = await User.paginate({
-        paginate: 10,
+        page,
+        paginate,
         include: {
           model: Statistic,
           as: "statistic",
