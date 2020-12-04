@@ -49,6 +49,11 @@ describe("Correct users endpoint", () => {
         .get("/statistics/5?dateFrom=1966-10-17&dateTo=1966-10-20")
         .expect(404);
     });
+    it("should return 400", async () => {
+      const response = await request(app)
+        .get("/statistics/f?dateFrom=1966-10-17&dateTo=1966-10-20")
+        .expect(400);
+    });
 
   });
 });

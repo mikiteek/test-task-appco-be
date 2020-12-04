@@ -1,0 +1,217 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple example appco API project",
+    "version": "1.0.2",
+    "title": "Slim Mom API",
+    "contact": {
+      "email": "mikiteek@gmail.com"
+    },
+    "license": {
+      "name": "FS29 and FS31",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "young-basin-06562.herokuapp.com",
+  "basePath": "/",
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get Users information",
+        "description": "Get Users information",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page number you need",
+            "default": 1,
+            "schema": {
+              "type": "number",
+              "example": 5
+            }
+          },
+          {
+            "in": "query",
+            "name": "paginate",
+            "description": "Size pof pagination per page",
+            "default": 25,
+            "schema": {
+              "type": "number",
+              "example": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/usersWithStats"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/notFound"
+            }
+          }
+        }
+      }
+    },
+    "/statistics/{user_id}": {
+      "get": {
+        "tags": ["Statistic"],
+        "summary": "Get user's statistic by id",
+        "description": "Get user's statistic by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "integer",
+              "example": 5
+            },
+            "required": true,
+            "description": "Id of user, statistic you need"
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "schema": {
+              "type": "integer",
+              "example": "2019-10-17"
+            },
+            "description": "Filter by date from you need"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "schema": {
+              "type": "integer",
+              "example": "2019-10-20"
+            },
+            "description": "Filter by date before you need"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/userStatistic"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, may be your request without user_id param",
+            "schema": {
+              "$ref": "#definitions/badRequest"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/notFound"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "usersWithStats": {
+      "properties": {
+        "docs": {
+          "type": "array",
+          "items": {
+            "$ref": "#definitions/usersWithStatsItem"
+          }
+        }
+      }
+    },
+    "usersWithStatsItem": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "ip_address": {
+          "type": "string"
+        },
+        "statistic": {
+          "type": "array",
+          "items": {
+            "$ref": "#definitions/totalStatistic"
+          }
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "totalStatistic": {
+      "properties": {
+        "total_clicks": {
+          "type": "integer"
+        },
+        "total_page_views": {
+          "type": "integer"
+        }
+      }
+    },
+    "userStatistic": {
+      "properties": {
+        "id": {
+          "uniqueItems": true,
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        },
+        "page_views": {
+          "type": "integer"
+        },
+        "clicks": {
+          "type": "integer"
+        }
+      }
+    },
+    "notFound": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "badRequest": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
