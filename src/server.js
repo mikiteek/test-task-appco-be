@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../swagger.json");
 
 const sequelize = require("./utils/database");
 const usersRouter = require("./users/users.routes");
@@ -58,6 +60,7 @@ class Server {
   initRoutes() {
     this.#app.use("/users", usersRouter);
     this.#app.use("/statistics", statisticsRouter);
+    this.#app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
   startListening() {
     this.#app.listen(process.env.PORT, () => {
