@@ -9,8 +9,4 @@ usersRouter.get("/",
   usersController.getListUsers,
 );
 
-usersRouter.get("/:id",
-  usersController.getUserById,
-);
-
 module.exports = usersRouter;

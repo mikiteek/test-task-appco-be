@@ -1,15 +1,16 @@
 const Statistic = require("./statistics.model");
-const {getUsersStatisticData} = require("../helpers/getJsonDataHelper");
-const {checkRowsAndSeedHelper} = require("../helpers/checkRowsAndSeedHelper");
+const {getFilterByDateOptions} = require("./statistics.helper");
 
 class StatisticsController {
-  async getStatistics(req, res, next) {
+  async getStatisticsByUserId(req, res, next) {
     try {
-      const statistic = await Statistic.findAll();
+      const {params: {user_id}, query: {dateFrom, dateTo}} = req;
+      const options = getFilterByDateOptions(dateFrom, dateTo, user_id);
+      const statistic = await Statistic.findAll(options);
       if (!statistic.length) {
         return res.status(404).json({message: "Not found"});
       }
-      return res.status(200).json({"Count of elements": statistic.length});
+      return res.status(200).json(statistic);
     }
     catch (error) {
       next(error);
