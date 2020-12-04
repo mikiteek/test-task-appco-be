@@ -1,13 +1,8 @@
 'use strict';
 const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Statistic extends Model {
-    static associate(models) {
-      this.belongsTo(models.User, {
-        foreignKey: "user_id",
-      });
-    }
-  };
+  class Statistic extends Model {};
+
   Statistic.init({
       user_id: {
         type: DataTypes.INTEGER,

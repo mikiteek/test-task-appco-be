@@ -1,22 +1,12 @@
 const {Router} = require("express");
 
 const usersController = require("./users.controller");
+const {checkPaginateParamsMiddleware} = require("./users.middlewares");
 const usersRouter = Router();
 
-usersRouter.post("/",
-  usersController.createUser,
-);
-
-usersRouter.delete("/:id",
-  usersController.removeUser,
-);
-
 usersRouter.get("/",
+  checkPaginateParamsMiddleware,
   usersController.getListUsers,
-);
-
-usersRouter.patch("/seed",
-  usersController.seedUsers,
 );
 
 usersRouter.get("/:id",

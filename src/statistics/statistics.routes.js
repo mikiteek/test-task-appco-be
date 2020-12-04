@@ -7,12 +7,4 @@ statisticsRouter.get("/",
   statisticsController.getStatistics,
 );
 
-statisticsRouter.patch("/seed",
-  statisticsController.seedStatistics,
-);
-
-statisticsRouter.post("/",
-  statisticsController.createStatistics,
-);
-
 module.exports = statisticsRouter;
