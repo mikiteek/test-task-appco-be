@@ -36,5 +36,10 @@ describe("Correct work of user's endpoints", () => {
         total: expect.any(Number)
       });
     });
+    it("should return 404", async () => {
+      const response = await request(app)
+        .get("/users?page=41&paginate=25")
+        .expect(404);
+    });
   });
 });

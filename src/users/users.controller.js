@@ -36,6 +36,9 @@ class UsersController {
           separate: true,
         },
       });
+      if (!users.docs.length) {
+        return res.status(404).json({message: "Not found"})
+      }
       return res.status(200).json(users);
     }
     catch (error) {
